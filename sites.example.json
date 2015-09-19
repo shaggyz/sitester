@@ -1,0 +1,10 @@
+{
+    "sites": [
+        "http://www.microsoft.com",
+        "http://www.facebook.com",
+        "http://www.google.com",
+        "http://www.example.wrong",
+        "https://www.wikipedia.org",
+        "https://en.wikipedia.org/wiki/Ruby_(programming_language)"
+    ]
+}
