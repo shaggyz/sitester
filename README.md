@@ -18,7 +18,7 @@ Test with provided example file:
 Common usage:
 
 ```bash
-    cp sites.example.json sites.example
+    cp sites.example.json sites.json
 ```
 
 Edit sites.json with your own sites, Then:
