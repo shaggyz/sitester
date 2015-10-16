@@ -6,15 +6,7 @@ require 'net/http'
 require 'hpricot'
 require 'colorize'
 
-#
-# Reads a file from path
-#
-def read_file(file_name)
-    file = File.open(file_name, "r") 
-    data = file.read
-    file.close
-    data
-end
+require './src/site_file'
 
 #
 # Prints a simple report to stdout
@@ -66,6 +58,7 @@ end
 # Starts the site scanner
 #
 def scan(file_path = "./sites.json")
+    SiteFile.new.read_file(file_path)
     d = read_file file_path
     sites = JSON.parse(d)
     sites["sites"].each { |site|
