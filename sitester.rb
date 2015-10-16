@@ -7,6 +7,7 @@ require 'hpricot'
 require 'colorize'
 
 require './src/site_file'
+require './src/program'
 
 #
 # Prints a simple report to stdout
@@ -66,19 +67,6 @@ def scan(file_path = "./sites.json")
     }
 end
 
-# 
-# static script execution
-# 
 if __FILE__ == $0
-    puts "Sitester"
-    puts "Simple and fancy site scanner. Scanning sites...\n\r"
-    
-    if ARGV[0] == "--example"
-        scan "./sites.example.json"
-    else
-        scan 
-    end
-    
-    puts "Done. Bye!"
-    exit 0
+  Program.new.set_options!(ARGV)
 end
