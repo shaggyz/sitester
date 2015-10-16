@@ -1,72 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'json'
-require 'net/http'
-require 'hpricot'
-require 'colorize'
-
-require './src/site_file'
 require './src/program'
 
-#
-# Prints a simple report to stdout
-#
-def report(url)
-    begin
-        response = request(url)
-        valid = response.is_a?(Net::HTTPSuccess)
-    rescue
-        print "• ".colorize(:red)
-        puts "Cannot connect with: " + url.colorize(:red) + "\n\n"
-        return
-    end
-    
-    color = valid ? :green : :red
-
-    print "• ".colorize(color)
-    puts "Site: " + url.colorize(color)
-    puts "HTTP Code: " + response.code.colorize(:cyan) + " HTTP status: " \
-            + response.message.colorize(:cyan)
-    
-    doc = Hpricot(response.body)
-    puts "Page title: " + doc.search("title").inner_html.colorize(:cyan)
-    puts "\n"
-end
-
-#
-# Performs a HTTP request to given URI
-#
-def request(uri_str, limit = 5)
-    raise ArgumentError, 'too many HTTP redirects' if limit == 0
-
-    response = Net::HTTP.get_response(URI(uri_str))
-
-    case response
-        when Net::HTTPSuccess then
-            response
-        when Net::HTTPRedirection then
-            location = response['location']
-            print "• ".colorize(:yellow)
-            warn "Redirection: " + uri_str.colorize(:cyan) + " => " + location.colorize(:cyan)
-            request(location, limit - 1)
-        else
-            response.value
-    end
-end
-
-#
-# Starts the site scanner
-#
-def scan(file_path = "./sites.json")
-    SiteFile.new.read_file(file_path)
-    d = read_file file_path
-    sites = JSON.parse(d)
-    sites["sites"].each { |site|
-        report(site)
-    }
-end
-
+# static entry point
 if __FILE__ == $0
-  Program.new.set_options!(ARGV)
+    $LOAD_PATH.unshift(File.dirname(__FILE__))
+    Program.new.set_options!(ARGV)
 end
