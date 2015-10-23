@@ -3,7 +3,6 @@
 require 'rubygems'
 require './src/program'
 
-# static entry point
 if __FILE__ == $0
     $LOAD_PATH.unshift(File.dirname(__FILE__))
     Program.new.set_options!(ARGV)
