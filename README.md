@@ -26,3 +26,8 @@ Edit sites.json with your own sites, Then:
 ```bash
     ./sitester.rb
 ```
+
+## Known issues
+
+- Fake negatives, sometimes Net::HTTP.get_response reports a wrong HTTP response code. 
+
