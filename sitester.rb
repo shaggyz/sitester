@@ -37,7 +37,7 @@ def report(url)
             + response.message.colorize(:cyan)
     
     doc = Hpricot(response.body)
-    puts "Page title: " + doc.search("title").inner_html.colorize(:cyan)
+    puts "Page title: " + doc.search("title").inner_html.strip.colorize(:cyan)
     puts "\n"
 end
 
